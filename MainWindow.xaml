@@ -1,0 +1,114 @@
+﻿<Window x:Class="calc.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:calc"
+        mc:Ignorable="d"
+        DataContext="{Binding Mode=OneWay, RelativeSource={RelativeSource Self} }"
+        Title="MainWindow" Height="640" Width="320" MinHeight="320" MinWidth="160">
+
+    <Window.Resources>
+        <ControlTemplate TargetType="Button" x:Key="buttonCalc">
+            <Border Name="border" Background="#bbbbbb" BorderBrush="#949494" BorderThickness="2">
+                <ContentControl Content="{TemplateBinding Content}" 
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"/>
+            </Border>
+            <ControlTemplate.Triggers>
+                <Trigger Property="IsMouseOver" Value="true">
+                    <Setter TargetName="border" Property="Background" Value="#72bdd3"/>
+                    <Setter TargetName="border" Property="BorderBrush" Value="#ff491c"/>
+                </Trigger>
+                <Trigger Property="IsPressed" Value="true">
+                    <Setter TargetName="border" Property="Background" Value="#3c5893"/>
+                    <Setter TargetName="border" Property="BorderBrush" Value="#820000"/>
+                </Trigger>
+            </ControlTemplate.Triggers>
+        </ControlTemplate>
+    </Window.Resources>
+
+    <Grid Margin="5" >
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0.25*"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="0.25*"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="0.25*"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="0.25*"/>
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0.1*"/>
+            <RowDefinition Height="0.15*"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="0.125*"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="0.125*"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="0.125*"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="0.125*"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="0.125*"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="0.125*"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Row="0" Grid.ColumnSpan="7" HorizontalAlignment="Right" VerticalAlignment="Center" Text="{Binding Display}" Foreground="#3f3f3f" FontSize="20"/>
+        <Viewbox Grid.Row="1" Grid.ColumnSpan="7" HorizontalAlignment="Right" VerticalAlignment="Center">
+            <TextBlock x:Name="number" Text="{Binding Number, TargetNullValue=0}" FontSize="60"/>
+        </Viewbox>
+        <Viewbox Grid.Row="1" Grid.ColumnSpan="7" HorizontalAlignment="Right" VerticalAlignment="Center">
+            <TextBlock x:Name="result" Text="{Binding Result}" FontSize ="60" Visibility="Hidden"/>
+        </Viewbox>
+
+        <Button Content="%" Template="{StaticResource buttonCalc}" Click="Percent_Click" FontWeight="Bold" FontSize="14"                        Grid.Column="0" Grid.Row="3"/>
+        <Button Template="{StaticResource buttonCalc}" Click="Sqrt_Click"                                                                       Grid.Column="2" Grid.Row="3">
+            <Image Source="images/sqrt.png" Width="13"/>
+        </Button>
+        <Button  Template="{StaticResource buttonCalc}" Click="Square_Click"                                                                    Grid.Column="4" Grid.Row="3">
+            <Image Source="images/x2.png" Width="11"/>
+        </Button>
+        <Button Content="1/X" Template="{StaticResource buttonCalc}" Click="PartOfWhole_Click" FontWeight="Bold" FontSize="10"                  Grid.Column="6" Grid.Row="3"/>
+        <Button Content="CE" Template="{StaticResource buttonCalc}" Click="CleanEntry_Click" FontWeight="Bold" FontSize="10"                    Grid.Column="0" Grid.Row="5"/>
+        <Button Content="C" Template="{StaticResource buttonCalc}" Click="Clean_Click" FontWeight="Bold" FontSize="10"                          Grid.Column="2" Grid.Row="5"/>
+        <Button Template="{StaticResource buttonCalc}" Click="Backspace_Click"                                                                  Grid.Column="4" Grid.Row="5">
+            <Image Source="images/back.png" Width="15"/>
+        </Button>
+        <Button Template="{StaticResource buttonCalc}" Click="Division_Click"                                                                   Grid.Column="6" Grid.Row="5">
+            <Image Source ="images/obelus.png" Width="15"/>                      
+        </Button>
+        <Button Content="7" Template="{StaticResource buttonCalc}" Click="Seven_Click"                                                          Grid.Column="0" Grid.Row="7"/>
+        <Button Content="8" Template="{StaticResource buttonCalc}" Click="Eight_Click"                                                          Grid.Column="2" Grid.Row="7"/>
+        <Button Content="9" Template="{StaticResource buttonCalc}" Click="Nine_Click"                                                           Grid.Column="4" Grid.Row="7"/>
+        <Button Content="*" Template="{StaticResource buttonCalc}" Click="Multiplication_Click" FontSize="20"                                   Grid.Column="6" Grid.Row="7"/>
+        <Button Content="4" Template="{StaticResource buttonCalc}" Click="Four_Click"                                                           Grid.Column="0" Grid.Row="9"/>
+        <Button Content="5" Template="{StaticResource buttonCalc}" Click="Fife_Click"                                                           Grid.Column="2" Grid.Row="9"/>
+        <Button Content="6" Template="{StaticResource buttonCalc}" Click="Six_Click"                                                            Grid.Column="4" Grid.Row="9"/>
+        <Button Content="-" Template="{StaticResource buttonCalc}" Click="Minus_Click" FontSize="30"                                            Grid.Column="6" Grid.Row="9"/>
+        <Button Content="1" Template="{StaticResource buttonCalc}" Click="One_Click"                                                            Grid.Column="0" Grid.Row="11"/>
+        <Button Content="2" Template="{StaticResource buttonCalc}" Click="Two_Click"                                                            Grid.Column="2" Grid.Row="11"/>
+        <Button Content="3" Template="{StaticResource buttonCalc}" Click="Three_Click"                                                          Grid.Column="4" Grid.Row="11"/>
+        <Button Content="+" Template="{StaticResource buttonCalc}" Click="Plus_Click" FontSize="20"                                             Grid.Column="6" Grid.Row="11"/>
+        <Button Content="+/-" Template="{StaticResource buttonCalc}" Click="SignChange_Click" FontWeight="Bold" FontSize="13"                   Grid.Column="0" Grid.Row="13"/>
+        <Button Content="0" Template="{StaticResource buttonCalc}" Click="Zero_Click"                                                           Grid.Column="2" Grid.Row="13"/>
+        <Button Content="." Template="{StaticResource buttonCalc}" Click="DecimalSeparator_Click" FontWeight="Bold" FontSize="14"               Grid.Column="4" Grid.Row="13"/>
+        <Button Content="=" Template="{StaticResource buttonCalc}" Click="Equal_Click" FontWeight="Bold" FontSize="14"                          Grid.Column="6" Grid.Row="13"/>
+
+        <GridSplitter Grid.Row="2" Grid.ColumnSpan="7" Height="3" HorizontalAlignment="Center"/>
+        <GridSplitter Grid.Row="4" Grid.ColumnSpan="7" Height="3" HorizontalAlignment="Center"/>
+        <GridSplitter Grid.Row="6" Grid.ColumnSpan="7" Height="3" HorizontalAlignment="Center"/>
+        <GridSplitter Grid.Row="8" Grid.ColumnSpan="7" Height="3" HorizontalAlignment="Center"/>
+        <GridSplitter Grid.Row="10" Grid.ColumnSpan="7" Height="3" HorizontalAlignment="Center"/>
+        <GridSplitter Grid.Row="12" Grid.ColumnSpan="7" Height="3" HorizontalAlignment="Center"/>
+
+        <GridSplitter Grid.Column="1" Grid.Row="1" Grid.RowSpan="12" Width ="3" VerticalAlignment="Center"/>
+        <GridSplitter Grid.Column="3" Grid.Row="1" Grid.RowSpan="12" Width ="3" VerticalAlignment="Center"/>
+        <GridSplitter Grid.Column="5" Grid.Row="1" Grid.RowSpan="12" Width ="3" VerticalAlignment="Center"/>
+
+    </Grid>
+
+</Window>
